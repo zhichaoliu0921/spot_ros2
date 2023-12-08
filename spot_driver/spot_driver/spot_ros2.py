@@ -314,7 +314,8 @@ class SpotROS(Node):
         self.password: Optional[str] = get_from_env_and_fall_back_to_param(
             "BOSDYN_CLIENT_PASSWORD", self, "password", "password"
         )
-        self.ip: Optional[str] = get_from_env_and_fall_back_to_param("SPOT_IP", self, "hostname", "10.0.0.3")
+        self.ip: str = get_from_env_and_fall_back_to_param("SPOT_IP", self, "hostname", "10.0.0.3")
+        self.port: int = get_from_env_and_fall_back_to_param("SPOT_PORT", self, "port", 0)
 
         self.camera_static_transform_broadcaster: tf2_ros.StaticTransformBroadcaster = (
             tf2_ros.StaticTransformBroadcaster(self)
@@ -374,6 +375,7 @@ class SpotROS(Node):
                 self.username,
                 self.password,
                 self.ip,
+                self.port,
                 self.name,
                 self.wrapper_logger,
                 self.start_estop.value,
